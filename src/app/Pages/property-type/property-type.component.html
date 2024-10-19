@@ -1,0 +1,69 @@
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-8">
+            <div class="row ">
+                <div class="card">
+                    <div class="card-header bg-warning">
+                        <h5>Proprties List</h5>
+                    </div>
+                    <div class="card-body ">
+                        <table class="table table-bordered ">
+                            <thead >
+                                <tr>
+                                    <th scope="col">Sr no</th>
+                                    <th scope="col">Property Type</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for(item of gridata; track $index){
+                                    <tr>
+                                        <th scope="row">{{$index+1}}</th>
+                                        <td>{{item.propertyType}}</td>
+                                        <td>
+                                            <button class="btn btn-warning btn-sm" (click)="onEdit(item)">Edit</button>
+                                            <button class="btn btn-danger btn-sm" (click)="ondelete(item.propertTypeId)">Delete</button>
+                                        </td>
+                                    </tr>
+                                }
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+          <div class="card mb-4">
+           <div class="card-header bg-warning">Add Customer</div>
+           <div class="card-body">
+            <form [formGroup]="form">
+                <div class="form-group">
+                    <label>Property Type</label>
+                    <input type="text" formControlName="propertyType" class="form-control">
+                    @if(form.controls['propertyType'].touched){
+                        <div class="text-danger">
+                           @if(form.controls['propertyType'].errors?.['required']){
+                            <span>This is Required</span>
+                           }@else if(form.controls['propertyType'].errors?.['minlength']){
+                            <span>Minimum 5 Length Is Required</span>
+                           }
+                              
+                          </div>
+                    }
+                    
+                    
+                </div>
+                @if(form.controls['propertTypeId'].value==0){
+                    <button type="button" (click)="onsavedata()" [disabled]="form.invalid" class="btn btn-primary mt-2">Save</button>
+                }@else{
+                    <button type="button" (click)="onupdate()" [disabled]="form.invalid" class="btn btn-warning mt-2">Update</button>
+                } 
+                
+                
+            </form>
+           </div>
+          </div>
+        </div>
+    </div>
+</div>
